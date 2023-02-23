@@ -438,7 +438,7 @@ The screenshot tool is determined by `org-download-screenshot-method'."
 It's inserted before the image link and is used to annotate it.")
 
 (defvar org-download-link-format
-  "[[file:%s]]\n"
+  "[[file:%s]]"
   "Format of the file link to insert.")
 
 (defcustom org-download-link-format-function #'org-download-link-format-function-default
@@ -455,7 +455,7 @@ It's inserted before the image link and is used to annotate it.")
   "The default function of `org-download-link-format-function'."
   (if (and (>= (string-to-number org-version) 9.3)
            (eq org-download-method 'attach))
-      (format "[[attachment:%s]]\n"
+      (format "[[attachment:%s]]"
               (org-link-escape
                (file-relative-name filename (org-attach-dir))))
     (format org-download-link-format
@@ -567,12 +567,12 @@ It's inserted before the image link and is used to annotate it.")
          (indent (- beg line-beg))
          (in-item-p (org-in-item-p))
          str)
-    (if (looking-back "^[ \t]+" line-beg)
-        (delete-region (match-beginning 0) (match-end 0))
-      (newline))
-    (insert (funcall org-download-annotate-function link))
+    ;; (if (looking-back "^[ \t]+" line-beg)
+    ;;     (delete-region (match-beginning 0) (match-end 0))
+    ;;   (newline))
+    ;; (insert (funcall org-download-annotate-function link))
     (dolist (attr org-download-image-attr-list)
-      (insert attr "\n"))
+      (insert attr ""))
     (insert (if (= org-download-image-html-width 0)
                 ""
               (format "#+attr_html: :width %dpx\n" org-download-image-html-width)))
