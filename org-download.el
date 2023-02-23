@@ -517,6 +517,8 @@ It's inserted before the image link and is used to annotate it.")
                  (apply #'org-download--fullname link-and-ext)))))
     (setq org-download-path-last-file filename)
     (org-download--image link filename)
+    (async-shell-command
+     (format "sips -Z 1028 %s" filename))
     (when (org-download-org-mode-p)
       (when (eq org-download-method 'attach)
         (org-attach-attach filename nil 'none))
